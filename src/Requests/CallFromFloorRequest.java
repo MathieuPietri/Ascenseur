@@ -2,28 +2,14 @@ package Requests;
 
 import commandSystem.Direction;
 
-public class CallFromFloorRequest implements Request {
+public class CallFromFloorRequest extends Request {
 
-	private final int sourceFloor;
-	private final Direction direction;
 
 	public CallFromFloorRequest(int sourceFloor, Direction direction) {
+		super();
 		this.sourceFloor = sourceFloor;
 		this.direction = direction;
+		this.type = RequestType.CALLFROMFLOOR;
 	}
 
-	@Override
-	public Direction getDirection() {
-		return direction;
-	}
-
-	@Override
-	public int getDestinationFloor() {
-		return -1;
-	}
-
-	@Override
-	public int getSourceFloor() {
-		return sourceFloor;
-	}
 }

@@ -2,26 +2,45 @@ package Requests;
 
 import commandSystem.Direction;
 
-public interface Request {
+public abstract class Request {
+	
+	protected RequestType type;
+	protected int destinationFloor;
+	protected int sourceFloor;
+	protected Direction direction;
+	
+	public Request() {
+		this.destinationFloor = -1;
+		this.sourceFloor = -1;
+		this.direction = Direction.NONE;
+	}
+	
+	/**
+	 * 
+	 * @return the direction of the request, unconcerned extending classes return NONE
+	 */
+	public Direction getDirection() {
+		return Direction.NONE;
+	}
 
 	/**
 	 * 
-	 * @return the direction of the request, NONE if it was called from the Elevator
-	 *         or if it is an emergency call
+	 * @return the wished floor, unconcerned extending classes return -1
 	 */
-	public Direction getDirection();
+	public int getDestinationFloor() {
+		return destinationFloor;
+	}
 
 	/**
 	 * 
-	 * @return the wished floor, or -1 if it is an emergency call
+	 * @return the floor it was called from, unconcerned extending classes return -1 
 	 */
-	public int getDestinationFloor();
+	public int getSourceFloor() {
+		return sourceFloor;
+	}
 
-	/**
-	 * 
-	 * @return the floor it was called from, -1 if it was called from the Elevator
-	 *         or if it is an emergency call
-	 */
-	public int getSourceFloor();
-
+	
+	public RequestType getType() {
+		return type;
+	}
 }

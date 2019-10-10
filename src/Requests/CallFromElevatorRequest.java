@@ -1,28 +1,10 @@
 package Requests;
 
-import commandSystem.Direction;
-
-public class CallFromElevatorRequest implements Request {
-
-	private final int destinationFloor;
+public class CallFromElevatorRequest extends Request {
 
 	public CallFromElevatorRequest(int destinationFloor) {
+		super();
 		this.destinationFloor = destinationFloor;
+		this.type = RequestType.CALLFROMELEVATOR;
 	}
-
-	@Override
-	public Direction getDirection() {
-		return Direction.NONE;
-	}
-
-	@Override
-	public int getDestinationFloor() {
-		return destinationFloor;
-	}
-
-	@Override
-	public int getSourceFloor() {
-		return -1;
-	}
-
 }
