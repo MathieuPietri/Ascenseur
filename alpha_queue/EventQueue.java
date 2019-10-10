@@ -1,24 +1,34 @@
-import java.util.*;
-import src.commandSystem.Direction;
-
 // emergencyStop -> clear the queue
+import java.util.ArrayList;
+import java.util.Collections;
+
+import java.io.*; // test
 
 public class EventQueue {
-    private ArrayList<Int> upQueue = new ArrayList<Int>();
-    private ArrayList<Int> downQueue = new ArrayList<Int>();
+    private ArrayList<Integer> upQueue;
+    private ArrayList<Integer> downQueue;
+
+
+    EventQueue() {
+        upQueue = new ArrayList<Integer>();
+        downQueue = new ArrayList<Integer>();
+    }
 
     /**
      * Add new floor to <b>queue</b> queue and sort it to keep floors order
-     * @param queue ArrayList<Int>
+     * @param queue ArrayList<Integer>
      * @param floor int - the floor we add to queue
      * @param reverse boolean - reverse queue order
      */
-    public void appSort(ArrayList<Int> queue, int floor, boolean reverse) {
-        queue.push(floor);
+    public void appSort(ArrayList<Integer> queue, int floor, boolean reverse) {
+        queue.add(floor);
         if (reverse)
-            Collection.sort(queue, Collection.reverseOrder());
+            Collections.sort(queue, Collections.reverseOrder());
         else
-            Collection.sort(queue);
+            Collections.sort(queue);
+        // System.out.println("we added " + floor + " now we have:");
+        // System.out.println("upQueue: " + upQueue);
+        // System.out.println("downQueue: " + downQueue);
     }
 
     /**
@@ -53,17 +63,26 @@ public class EventQueue {
      * @param direction of elevator
      */
     public void delEvent(int floor, Direction direction) {
+        // System.out.println("we wan't to remove " + floor + " with dir " + direction);
+        // System.out.println("upQueue: " + upQueue);
+        // System.out.println("downQueue: " + downQueue);
+        // System.out.println("downQueue.contains(floor)=" + downQueue.contains(floor));
+        // System.out.println("index of floor in downQueue: " + downQueue.indexOf(floor));
+        // System.out.println("upQueue.contains(floor)=" + upQueue.contains(floor));        
+        // System.out.println("index of floor in upQueue: " + upQueue.indexOf(floor));
         switch (direction) {
             case UP:
                 if (upQueue.contains(floor))
                     upQueue.remove(upQueue.indexOf(floor));
                 else // we go up to the top of descending queue
                     downQueue.remove(downQueue.indexOf(floor));
+                break;
             case DOWN:
                 if (downQueue.contains(floor))
                     downQueue.remove(downQueue.indexOf(floor));
                 else // we go down to the bottom of ascending queue
                     upQueue.remove(upQueue.indexOf(floor));
+                break;
         }
     }
 
@@ -84,22 +103,27 @@ public class EventQueue {
                 }
                 // if no floor found in upqueue, change direction
                 if (nextFloor < 0 && downQueue.size() > 0) {
-                    nextFloor = downQueue.get(0)
+                    nextFloor = downQueue.get(0);
                 }
                 break;
             case DOWN:
                 for (int i = 0; i < downQueue.size() && nextFloor < 0; i++) {
-                    if (upQueue.get(i) <= elevatorFloor) {
-                        nextFloor = upQueue.get(i);
+                    if (downQueue.get(i) <= elevatorFloor) {
+                        nextFloor = downQueue.get(i);
                     }
                 }
                 // if no floor found in downqueue, change direction
                 if (nextFloor < 0 && upQueue.size() > 0) {
-                    nextFloor = upQueue.get(0)
+                    nextFloor = upQueue.get(0);
                 }
                 break;
         }
         return nextFloor;
+    }
+
+    public void clearQueue() {
+        downQueue.removeAll(downQueue);
+        upQueue.removeAll(upQueue);
     }
 
 }
