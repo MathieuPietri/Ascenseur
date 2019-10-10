@@ -27,7 +27,7 @@ public abstract class Request {
 	 * 
 	 * @return the wished floor, unconcerned extending classes return -1
 	 */
-	public int getDestinationFloor() {
+	public int getWantedFloor() {
 		return destinationFloor;
 	}
 
@@ -35,7 +35,7 @@ public abstract class Request {
 	 * 
 	 * @return the floor it was called from, unconcerned extending classes return -1 
 	 */
-	public int getSourceFloor() {
+	public int getIncomingCallFloor() {
 		return sourceFloor;
 	}
 
