@@ -90,34 +90,32 @@ public class EventQueue {
 	 * 
 	 * @return next floor if exists else -1
 	 */
-	
-	//TODO Incorrect
-	public int getNextInstruction() {
+		public int getNextInstruction() {
 		
 		int nextFloor = -1;
 		switch (elevator.getCurrentDirection()) {
 		
-		//TODO : get first element of upQueue that is ABOVE the elevator's current floor
+		//get first element of upQueue that is ABOVE the elevator's current floor
 		case UP:
 			for (int i = 0; i < upQueue.size() && nextFloor < 0; i++) {
 				if (upQueue.get(i) >= elevator.getCurrentFloor()) {
 					nextFloor = upQueue.get(i);
 				}
 			}
-			// if no floor found in upQueue, change direction //TODO : change direction only if every floor in upQueue is UNDER the elevator's current floor
+			// change direction if every floor in upQueue is UNDER the elevator's current floor
 			if (nextFloor < 0 && downQueue.size() > 0) {
 				nextFloor = downQueue.get(0);
 			}
 			break;
 			
-		//TODO : get first element of downQueue that is UNDER the elevator's current floor
+		//get first element of downQueue that is UNDER the elevator's current floor
 		case DOWN:
 			for (int i = 0; i < downQueue.size() && nextFloor < 0; i++) {
 				if (upQueue.get(i) <= elevator.getCurrentFloor()) {
 					nextFloor = upQueue.get(i);
 				}
 			}
-			// if no floor found in downQueue, change direction //TODO : change direction only if every floor in downQueue is ABOVE the elevator's current floor
+			// change direction if every floor in downQueue is ABOVE the elevator's current floor
 			if (nextFloor < 0 && upQueue.size() > 0) {
 				nextFloor = upQueue.get(0);
 			}
